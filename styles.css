@@ -1,0 +1,11 @@
+.gameboard {
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.cell {
+  border: 1px solid black;
+  height: 50px;
+  width: 50px;
+}
