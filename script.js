@@ -1,6 +1,3 @@
-let roundTracker = 0;
-let gameOver = false;
-
 const gameBoard = (() => {
   const gameArray = ["", "", "", "", "", "", "", "", ""];
   const gameBoardDiv = document.querySelector(".gameboard");
@@ -17,21 +14,29 @@ const gameBoard = (() => {
 
   cells.forEach((cell) => {
     cell.addEventListener("click", () => {
-      if (roundTracker % 2 === 0 && !cell.textContent && gameOver === false) {
+      if (
+        game.roundTracker % 2 === 0 &&
+        !cell.textContent &&
+        game.gameOver === false
+      ) {
         const index = cell.getAttribute("data-index");
 
         gameArray[index] = "X";
         cell.textContent = "X";
-        roundTracker++;
+        game.roundTracker++;
         game.checkWin();
       }
 
-      if (roundTracker % 2 > 0 && !cell.textContent && gameOver === false) {
+      if (
+        game.roundTracker % 2 > 0 &&
+        !cell.textContent &&
+        game.gameOver === false
+      ) {
         const index = cell.getAttribute("data-index");
 
         gameArray[index] = "O";
         cell.textContent = "O";
-        roundTracker++;
+        game.roundTracker++;
         game.checkWin();
       }
     });
@@ -43,6 +48,9 @@ const gameBoard = (() => {
 })();
 
 const game = (() => {
+  let roundTracker = 0;
+  let gameOver = false;
+
   const checkWin = () => {
     const gameArray = gameBoard.gameArray;
     const winConditions = [
@@ -56,8 +64,8 @@ const game = (() => {
       [2, 4, 6],
     ];
 
-    if (roundTracker === 9 && gameOver === false) {
-      gameOver = true;
+    if (game.roundTracker === 9 && game.gameOver === false) {
+      game.gameOver = true;
       alert("Tie Game!");
     }
 
@@ -66,9 +74,9 @@ const game = (() => {
         gameArray[condition[0]] === "X" &&
         gameArray[condition[1]] === "X" &&
         gameArray[condition[2]] === "X" &&
-        gameOver === false
+        game.gameOver === false
       ) {
-        gameOver = true;
+        game.gameOver = true;
         alert("X Wins!");
       }
 
@@ -76,9 +84,9 @@ const game = (() => {
         gameArray[condition[0]] === "O" &&
         gameArray[condition[1]] === "O" &&
         gameArray[condition[2]] === "O" &&
-        gameOver === false
+        game.gameOver === false
       ) {
-        gameOver = true;
+        game.gameOver = true;
         alert("O Wins!");
       }
     });
@@ -86,5 +94,7 @@ const game = (() => {
 
   return {
     checkWin,
+    roundTracker,
+    gameOver,
   };
 })();
